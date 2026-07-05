@@ -8,9 +8,9 @@ interface Metric {
 }
 
 const METRICS: Metric[] = [
-  { value: "40+", label: "Marcas Transformadas" },
-  { value: "12M+", label: "Alcance Digital" },
-  { value: "5", label: "Años de Excelencia" },
+  { value: "10+", label: "Marcas Transformadas" },
+  { value: "+5.3M", label: "Alcance Digital" },
+  { value: "+21K", label: "Interacciones" },
 ];
 
 const sectionVariants = {
