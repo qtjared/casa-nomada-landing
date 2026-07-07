@@ -22,11 +22,13 @@ export default function ContactoMini() {
       <div className="absolute inset-0 pointer-events-none -z-10" aria-hidden="true">
         <m.div 
           className="absolute top-[10%] right-[10%] w-[250px] h-[250px] rounded-full border border-slate-200/40"
+          style={{ willChange: "transform" }}
           animate={{ rotate: 360, scale: [1, 1.05, 1] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         />
         <m.div 
           className="absolute bottom-[10%] left-[5%] w-[180px] h-[180px] rounded-full border border-slate-200/40"
+          style={{ willChange: "transform" }}
           animate={{ rotate: -360, scale: [1, 1.1, 1] }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
         />

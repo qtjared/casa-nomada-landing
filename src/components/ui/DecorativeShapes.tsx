@@ -28,7 +28,7 @@ function GeometricCircle({ className, size, index }: GeometricCircleProps) {
       variants={floatVariants}
       animate="animate"
       className={`absolute rounded-full border border-slate-300/15 ${className}`}
-      style={{ width: size, height: size }}
+      style={{ width: size, height: size, willChange: "transform" }}
     />
   );
 }

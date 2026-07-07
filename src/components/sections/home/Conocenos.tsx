@@ -60,6 +60,7 @@ export default function Conocenos() {
       {/* Floating Geometric Elements (Nested rotating circles) */}
       <m.div
         className="absolute top-20 right-10 lg:right-32 w-64 h-64 rounded-full border border-slate-200/60 -z-10 pointer-events-none flex items-center justify-center"
+        style={{ willChange: "transform" }}
         animate={{ rotate: 360 }}
         transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
       >
@@ -68,6 +69,7 @@ export default function Conocenos() {
 
       <m.div
         className="absolute bottom-20 left-10 lg:left-32 w-40 h-40 rounded-full border border-slate-200/50 -z-10 pointer-events-none"
+        style={{ willChange: "transform" }}
         animate={{ rotate: -360 }}
         transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
       />

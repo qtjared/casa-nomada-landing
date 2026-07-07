@@ -183,7 +183,7 @@ export function Navbar() {
                     {/* Framer Motion animated underline */}
                     {isActive && (
                       <m.div
-                        layoutId="navbar-underline"
+                        layoutId={isMobile ? undefined : "navbar-underline"}
                         className="absolute left-0 -bottom-1 w-full h-[2px] bg-slate-900"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}

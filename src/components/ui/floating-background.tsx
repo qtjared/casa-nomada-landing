@@ -27,6 +27,7 @@ export default function FloatingBackground() {
             top: img.top,
             width: img.width,
             height: img.height,
+            willChange: "transform",
           }}
           animate={{
             y: [0, -40, 0],

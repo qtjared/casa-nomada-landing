@@ -147,6 +147,7 @@ export default function Servicios() {
               <AnimatePresence mode="wait">
                 <m.div
                   key={activeServiceIndex}
+                  style={{ willChange: "transform, opacity" }}
                   initial={{ opacity: 0, scale: 1.05 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0 }}
