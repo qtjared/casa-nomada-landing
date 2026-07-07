@@ -3,8 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
+import { useState, useEffect, useSyncExternalStore } from "react";
+import { m, AnimatePresence, Variants } from "framer-motion";
 
 interface NavLink {
   label: string;
@@ -20,34 +20,32 @@ const NAV_LINKS: NavLink[] = [
 
 export function Navbar() {
   const pathname = usePathname();
-  const [isScrolled, setIsScrolled] = useState(false);
+  
+  const isScrolled = useSyncExternalStore(
+    (callback) => {
+      window.addEventListener("scroll", callback, { passive: true });
+      return () => window.removeEventListener("scroll", callback);
+    },
+    () => window.scrollY > 20,
+    () => false
+  );
+
+  const isMobile = useSyncExternalStore(
+    (callback) => {
+      window.addEventListener("resize", callback);
+      return () => window.removeEventListener("resize", callback);
+    },
+    () => window.innerWidth < 768,
+    () => false
+  );
+
   const [isOpen, setIsOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    const handleResize = () => {
-      const mobile = window.innerWidth < 768; // md breakpoint
-      setIsMobile(mobile);
-      if (!mobile) {
-        setIsOpen(false); // Close menu if resized to desktop
-      }
-    };
-    
-    handleScroll();
-    handleResize();
-
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+    if (!isMobile) {
+      setIsOpen(false);
+    }
+  }, [isMobile]);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -144,7 +142,7 @@ export function Navbar() {
                 onClick={handleLogoClick} 
                 className="block select-none"
               >
-                <motion.div
+                <m.div
                   animate={{ rotate: (isOpen && isMobile) ? -180 : 0 }}
                   transition={{ duration: 0.25, ease: "easeOut" }}
                   className="relative w-12 h-12 cursor-pointer active:scale-95 transition-transform"
@@ -157,7 +155,7 @@ export function Navbar() {
                     className="object-contain"
                     priority
                   />
-                </motion.div>
+                </m.div>
               </Link>
             </div>
 
@@ -184,7 +182,7 @@ export function Navbar() {
 
                     {/* Framer Motion animated underline */}
                     {isActive && (
-                      <motion.div
+                      <m.div
                         layoutId="navbar-underline"
                         className="absolute left-0 -bottom-1 w-full h-[2px] bg-slate-900"
                         initial={{ opacity: 0 }}
@@ -203,14 +201,14 @@ export function Navbar() {
       {/* Full-Screen Mobile Overlay Menu */}
       <AnimatePresence>
         {isOpen && isMobile && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
             className="fixed inset-0 bg-[#F4F1ED]/95 backdrop-blur-md z-40 flex flex-col justify-center items-center"
           >
-            <motion.div
+            <m.div
               variants={menuVariants}
               initial="hidden"
               animate="visible"
@@ -220,7 +218,7 @@ export function Navbar() {
               {NAV_LINKS.map((link) => {
                 const isActive = pathname === link.href;
                 return (
-                  <motion.div key={link.label} variants={linkVariants}>
+                  <m.div key={link.label} variants={linkVariants}>
                     <Link
                       href={link.href}
                       onClick={(e) => handleMobileLinkClick(e, link.href)}
@@ -242,11 +240,11 @@ export function Navbar() {
                         <span className="absolute left-0 -bottom-1 w-full h-[3px] bg-orange-500" />
                       )}
                     </Link>
-                  </motion.div>
+                  </m.div>
                 );
               })}
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

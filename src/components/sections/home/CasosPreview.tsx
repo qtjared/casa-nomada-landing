@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 /* ─── Case study data ─── */
 interface CaseStudy {
@@ -81,7 +81,7 @@ function CardGeometry({ variant }: { variant: "left" | "right" }) {
         }`}
       />
       {/* Floating circle accent */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.5 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
@@ -111,14 +111,14 @@ export default function CasosPreview() {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Header */}
-        <motion.div
+        <m.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={sectionVariants}
           className="flex flex-col md:flex-row md:items-end justify-between mb-12 lg:mb-16 gap-6"
         >
-          <motion.div variants={fadeUpVariants}>
+          <m.div variants={fadeUpVariants}>
             <h2 className="font-bricolage font-extrabold text-3xl lg:text-4xl text-slate-900 tracking-tight">
               Casos de Estudio
             </h2>
@@ -126,9 +126,9 @@ export default function CasosPreview() {
               Un vistazo a nuestras colaboraciones recientes. Marcas que
               confiaron en nuestra visión para escalar al siguiente nivel.
             </p>
-          </motion.div>
+          </m.div>
 
-          <motion.div variants={fadeUpVariants}>
+          <m.div variants={fadeUpVariants}>
             <Link
               href="/clientes"
               className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.1em] text-slate-900 hover:text-slate-600 transition-colors group"
@@ -136,11 +136,11 @@ export default function CasosPreview() {
               Ver todos los proyectos
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
 
         {/* Case Study Cards */}
-        <motion.div
+        <m.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
@@ -148,7 +148,7 @@ export default function CasosPreview() {
           className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14"
         >
           {CASE_STUDIES.map((study, index) => (
-            <motion.div
+            <m.div
               key={study.id}
               variants={cardVariants}
               className="relative"
@@ -192,9 +192,9 @@ export default function CasosPreview() {
                   </h3>
                 </div>
               </Link>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

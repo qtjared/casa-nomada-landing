@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 const fadeUpVariants = {
   hidden: { opacity: 0, y: 28 },
@@ -20,12 +20,12 @@ export default function ContactoMini() {
 
       {/* Geometric decoration */}
       <div className="absolute inset-0 pointer-events-none -z-10" aria-hidden="true">
-        <motion.div 
+        <m.div 
           className="absolute top-[10%] right-[10%] w-[250px] h-[250px] rounded-full border border-slate-200/40"
           animate={{ rotate: 360, scale: [1, 1.05, 1] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         />
-        <motion.div 
+        <m.div 
           className="absolute bottom-[10%] left-[5%] w-[180px] h-[180px] rounded-full border border-slate-200/40"
           animate={{ rotate: -360, scale: [1, 1.1, 1] }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
@@ -33,7 +33,7 @@ export default function ContactoMini() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl relative z-10">
-        <motion.div
+        <m.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -45,7 +45,7 @@ export default function ContactoMini() {
             },
           }}
         >
-          <motion.div
+          <m.div
             variants={fadeUpVariants}
             className="relative"
           >
@@ -104,8 +104,8 @@ export default function ContactoMini() {
                 </form>
               </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
     </section>
   );

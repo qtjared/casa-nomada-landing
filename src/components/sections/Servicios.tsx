@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { ArrowRight, Code, PenTool, Lightbulb, Camera, TrendingUp } from "lucide-react";
 
 // Dummy Data para los Servicios
@@ -145,7 +145,7 @@ export default function Servicios() {
             {/* Columna Derecha: Imagen Dinámica (Crossfade) */}
             <div className="col-span-1 lg:col-span-7 h-[50vh] lg:h-[70vh] max-h-[800px] relative w-full rounded-3xl overflow-hidden shadow-2xl bg-stone-200">
               <AnimatePresence mode="wait">
-                <motion.div
+                <m.div
                   key={activeServiceIndex}
                   initial={{ opacity: 0, scale: 1.05 }}
                   animate={{ opacity: 1, scale: 1 }}
@@ -161,7 +161,7 @@ export default function Servicios() {
                     priority
                   />
                   <div className="absolute inset-0 bg-black/10" />
-                </motion.div>
+                </m.div>
               </AnimatePresence>
             </div>
             

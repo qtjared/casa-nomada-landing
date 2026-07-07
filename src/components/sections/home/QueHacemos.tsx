@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { 
   Sparkles, 
   Briefcase, 
@@ -110,14 +110,14 @@ export default function QueHacemos() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
-        <motion.div
+        <m.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={sectionVariants}
         >
           {/* Header Section */}
-          <motion.div variants={cardVariants} className="max-w-2xl mb-16">
+          <m.div variants={cardVariants} className="max-w-2xl mb-16">
             <h2 className="font-bricolage font-extrabold text-3xl lg:text-4xl text-slate-900 tracking-tight mb-4">
               ¿Qué hace Casa Nómada?
             </h2>
@@ -126,7 +126,7 @@ export default function QueHacemos() {
               comercio premium. Nuestro enfoque combina estética refinada con
               marketing estratégico para crear narrativas irresistibles.
             </p>
-          </motion.div>
+          </m.div>
 
           {/* Interactive Bento Grid */}
           <div className="grid grid-cols-1 md:grid-cols-6 gap-6 lg:gap-8">
@@ -136,7 +136,7 @@ export default function QueHacemos() {
           </div>
 
           {/* CTA Redirect Button */}
-          <motion.div variants={cardVariants} className="mt-16 flex justify-center">
+          <m.div variants={cardVariants} className="mt-16 flex justify-center">
             <Link 
               href="/servicios"
               className="group inline-flex items-center gap-2 bg-slate-900 text-white px-8 py-4 rounded-full font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
@@ -144,8 +144,8 @@ export default function QueHacemos() {
               Ver todos los servicios
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Link>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       </div>
     </section>
   );
@@ -173,7 +173,7 @@ function BentoCard({ service, index }: { service: ServiceItem; index: number }) 
   const Icon = service.icon;
 
   return (
-    <motion.div
+    <m.div
       variants={cardVariants}
       custom={index}
       className={`relative rounded-3xl border overflow-hidden transition-all duration-500 ease-out cursor-pointer group ${service.gridClass} ${
@@ -248,6 +248,6 @@ function BentoCard({ service, index }: { service: ServiceItem; index: number }) 
           </p>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

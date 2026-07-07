@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 interface Metric {
   value: string;
@@ -46,7 +46,7 @@ export default function Impacto() {
           style={{ transform: "rotate(-15deg)" }}
         />
         {/* Thin horizontal accent line */}
-        <motion.div
+        <m.div
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
@@ -56,14 +56,14 @@ export default function Impacto() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
-        <motion.div
+        <m.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={sectionVariants}
           className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
         >
-          <motion.div variants={fadeUpVariants}>
+          <m.div variants={fadeUpVariants}>
             <h2 className="font-bricolage font-extrabold text-3xl lg:text-4xl tracking-tight mb-6 leading-tight">
               Diseño que trasciende. <br />
               <span className="text-slate-400">Resultados que perduran.</span>
@@ -73,16 +73,16 @@ export default function Impacto() {
               y estéticas que impulsan el crecimiento y conectan profundamente
               con tu audiencia.
             </p>
-          </motion.div>
+          </m.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {METRICS.map((metric, index) => (
-              <motion.div
+              <m.div
                 key={metric.label}
                 variants={fadeUpVariants}
                 className="flex flex-col border-l border-white/20 pl-6"
               >
-                <motion.span
+                <m.span
                   initial={{ opacity: 0, scale: 0.5 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
@@ -93,14 +93,14 @@ export default function Impacto() {
                   className="font-bricolage font-bold text-4xl lg:text-5xl mb-2 text-white"
                 >
                   {metric.value}
-                </motion.span>
+                </m.span>
                 <span className="text-sm font-medium uppercase tracking-[0.1em] text-slate-400">
                   {metric.label}
                 </span>
-              </motion.div>
+              </m.div>
             ))}
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

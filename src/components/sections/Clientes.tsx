@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useScroll, useTransform, useMotionValueEvent, animate, MotionValue } from "framer-motion";
+import { m, useScroll, useTransform, useMotionValueEvent, animate, MotionValue } from "framer-motion";
 import { Sparkles, Users, TrendingUp, Eye, Music } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -140,12 +140,7 @@ const TOTAL_SLOTS = currentSlotCount;
 export default function Clientes() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(-1);
-  const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -362,16 +357,16 @@ export default function Clientes() {
         className="hidden lg:block relative"
         style={{ height: `${(TOTAL_SLOTS + 1) * 100}vh` }}
       >
-        <motion.div 
+        <m.div 
           className="sticky top-0 h-screen w-full flex items-center overflow-hidden"
         >
           {/* Full-width Floating Background on Desktop, bound to Collab phase opacity */}
-          <motion.div 
+          <m.div 
             style={{ opacity: collabOpacity }}
             className="hidden lg:block absolute inset-0 w-full h-full pointer-events-none z-10"
           >
             <FloatingBackground />
-          </motion.div>
+          </m.div>
           {/* Progress Indicators */}
           <div className="absolute right-8 top-1/2 -translate-y-1/2 flex flex-col gap-4 z-40">
             {BUSINESSES_MAPPED.map((biz, index) => (
@@ -399,7 +394,7 @@ export default function Clientes() {
           <div className="container mx-auto px-8 max-w-7xl w-full h-full flex flex-col justify-center pt-28 pb-16 relative">
             
             {/* Intro Cover (Fase 0) */}
-            <motion.div 
+            <m.div 
               style={{ opacity: introOpacity, y: introTranslateY }}
               className="absolute inset-0 flex flex-col justify-center items-center pointer-events-none"
             >
@@ -416,10 +411,10 @@ export default function Clientes() {
                   { value: "+21K", label: "Interacciones", icon: <Users className="w-5 h-5 text-slate-600" /> }
                 ]}
               />
-            </motion.div>
+            </m.div>
 
             {/* Collaborators (Fase 1) */}
-            <motion.div
+            <m.div
               style={{ opacity: collabOpacity, y: collabTranslateY }}
               className="absolute inset-0 flex flex-col justify-center items-center pointer-events-none z-20"
             >
@@ -434,7 +429,7 @@ export default function Clientes() {
               <div className="w-full pointer-events-auto">
                 <CollaboratorsSlider />
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Slide Rows */}
             <div className="relative w-full flex-1 max-h-[75vh] flex items-center">
@@ -452,7 +447,7 @@ export default function Clientes() {
               })}
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </>
   );
@@ -507,7 +502,7 @@ function BusinessRow({ business, index, totalBusinesses, scrollYProgress, TOTAL_
   const scale = useTransform(scrollYProgress, scaleRange, scaleValues);
 
   return (
-    <motion.div
+    <m.div
       style={{ opacity, y: translateY, scale }}
       className="absolute inset-0 w-full h-full flex items-center justify-between pointer-events-none"
     >
@@ -583,7 +578,7 @@ function BusinessRow({ business, index, totalBusinesses, scrollYProgress, TOTAL_
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -630,7 +625,7 @@ function PhaseBlock({ phase, pIdx, business, start, SLOT_SIZE, scrollYProgress }
   const pOpacity = useTransform(scrollYProgress, pOpacityRange, pOpacityValues);
 
   return (
-    <motion.div 
+    <m.div 
       style={{ opacity: pOpacity }} 
       className="col-start-1 row-start-1 flex flex-col gap-6 w-full"
     >
@@ -677,6 +672,6 @@ function PhaseBlock({ phase, pIdx, business, start, SLOT_SIZE, scrollYProgress }
           {phase.subCopy}
         </p>
       )}
-    </motion.div>
+    </m.div>
   );
 }

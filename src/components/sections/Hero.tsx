@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 /* ─── Title lines for staggered reveal ─── */
 const titleLines = [
@@ -80,28 +80,28 @@ function HeroGeometry() {
   return (
     <div className="absolute inset-0 pointer-events-none -z-10" aria-hidden="true">
       {/* Large circle stroke — top right */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
         className="absolute -top-16 -right-20 w-[380px] h-[380px] rounded-full border border-slate-300/20"
       />
       {/* Small circle — left side */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.6 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.4, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
         className="absolute top-[60%] -left-12 w-[140px] h-[140px] rounded-full border border-slate-300/15"
       />
       {/* Offset square — behind text area */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, rotate: 8 }}
         animate={{ opacity: 1, rotate: 12 }}
         transition={{ duration: 1.2, delay: 0.5 }}
         className="absolute top-[15%] left-[8%] w-[180px] h-[180px] border border-slate-300/10"
       />
       {/* Thin horizontal line accent */}
-      <motion.div
+      <m.div
         initial={{ scaleX: 0 }}
         animate={{ scaleX: 1 }}
         transition={{ duration: 1.4, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
@@ -114,7 +114,7 @@ function HeroGeometry() {
 /* ─── Image frame decoration ─── */
 function ImageFrame({ className }: { className: string }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1.0, delay: 0.8 }}
@@ -150,7 +150,7 @@ export default function Hero() {
 
           {/* Left: Text Content */}
           <div className="w-full lg:w-7/12 relative z-20">
-            <motion.div
+            <m.div
               variants={containerVariants}
               initial="hidden"
               animate="visible"
@@ -158,37 +158,37 @@ export default function Hero() {
               <h1 className="font-bricolage font-extrabold text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tighter text-slate-900 leading-[1.05] text-balance mb-6">
                 {titleLines.map((line, index) => (
                   <span key={index} className="block overflow-hidden py-1">
-                    <motion.span
+                    <m.span
                       variants={lineVariants}
                       className={`block origin-bottom-left ${
                         line.highlight ? "text-amber-700/90 italic" : ""
                       }`}
                     >
                       {line.text}
-                    </motion.span>
+                    </m.span>
                   </span>
                 ))}
               </h1>
 
               {/* Staggered word-by-word reveal for description */}
-              <motion.p
+              <m.p
                 variants={wordContainerVariants}
                 initial="hidden"
                 animate="visible"
                 className="text-lg md:text-xl text-slate-600 max-w-lg leading-relaxed mb-8 font-medium"
               >
                 {descriptionWords.map((word, i) => (
-                  <motion.span
+                  <m.span
                     key={i}
                     variants={wordVariants}
                     className="inline-block mr-[0.3em]"
                   >
                     {word}
-                  </motion.span>
+                  </m.span>
                 ))}
-              </motion.p>
+              </m.p>
 
-              <motion.div
+              <m.div
                 variants={fadeUpVariants}
                 className="flex flex-col sm:flex-row gap-4 sm:items-center"
               >
@@ -206,13 +206,13 @@ export default function Hero() {
                 >
                   Ver portafolio
                 </Link>
-              </motion.div>
-            </motion.div>
+              </m.div>
+            </m.div>
           </div>
 
           {/* Right: Asymmetrical Image Collage with Geometric Framing */}
           <div className="w-full lg:w-5/12 relative min-h-[400px] lg:min-h-[550px] mt-8 lg:mt-0 z-10">
-            <motion.div
+            <m.div
               initial="hidden"
               animate="visible"
               variants={containerVariants}
@@ -223,7 +223,7 @@ export default function Hero() {
               <ImageFrame className="right-[-24px] top-[-24px] w-[85%] h-[80%] z-[4]" />
 
               {/* Main Large Image */}
-              <motion.div
+              <m.div
                 variants={imageVariants}
                 className="absolute right-0 top-0 w-[85%] h-[80%] rounded-[2.5rem] overflow-hidden bg-stone-200 shadow-2xl z-10"
               >
@@ -236,13 +236,13 @@ export default function Hero() {
                   className="object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-slate-900/5 mix-blend-overlay" />
-              </motion.div>
+              </m.div>
 
               {/* Offset frame behind secondary image */}
               <ImageFrame className="left-0 sm:left-[-4%] lg:left-[-8%] bottom-[5%] w-[65%] h-[55%] ml-[-12px] mb-[-12px] rounded-[2rem] z-[15]" />
 
               {/* Secondary Overlapping Image */}
-              <motion.div
+              <m.div
                 variants={imageVariants}
                 className="absolute left-0 sm:left-[-4%] lg:left-[-8%] bottom-[5%] w-[65%] h-[55%] rounded-[2rem] overflow-hidden bg-stone-300 shadow-xl border-8 border-[#F4F1ED] z-20"
               >
@@ -254,16 +254,16 @@ export default function Hero() {
                   sizes="(max-width: 1024px) 100vw, 30vw"
                   className="object-cover object-center"
                 />
-              </motion.div>
+              </m.div>
 
               {/* Floating geometric circle near images */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 1.2, delay: 1.0 }}
                 className="absolute -bottom-4 right-[30%] w-[80px] h-[80px] rounded-full border border-slate-300/25 z-[25]"
               />
-            </motion.div>
+            </m.div>
           </div>
         </div>
       </div>

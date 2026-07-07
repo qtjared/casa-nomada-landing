@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 const floatVariants = {
   animate: (i: number) => ({
@@ -23,7 +23,7 @@ interface GeometricCircleProps {
 
 function GeometricCircle({ className, size, index }: GeometricCircleProps) {
   return (
-    <motion.div
+    <m.div
       custom={index}
       variants={floatVariants}
       animate="animate"

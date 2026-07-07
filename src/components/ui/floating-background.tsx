@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 const BACKGROUND_IMAGES = [
   { src: "/work-media/work-1.jpg", left: "2%", top: "8%", width: 130, height: 170, duration: 25, delay: 0 },
@@ -19,7 +19,7 @@ export default function FloatingBackground() {
   return (
     <div className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-hidden bg-transparent">
       {BACKGROUND_IMAGES.map((img, index) => (
-        <motion.div
+        <m.div
           key={index}
           className="absolute rounded-3xl overflow-hidden shadow-sm opacity-60"
           style={{
@@ -46,7 +46,7 @@ export default function FloatingBackground() {
             sizes="(max-width: 768px) 40vw, 20vw"
             className="object-cover transition-all duration-700 blur-[1px] scale-105"
           />
-        </motion.div>
+        </m.div>
       ))}
     </div>
   );
