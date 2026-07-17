@@ -4,13 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { m } from "framer-motion";
+import LazyVideo from "@/components/ui/LazyVideo";
 
 /* ─── Case study data ─── */
 interface CaseStudy {
   id: string;
   title: string;
   category: string;
-  videoSrc: string;
+  mediaSrc: string;
+  mediaType: "video" | "image";
   logoSrc: string;
   logoAlt: string;
 }
@@ -20,7 +22,8 @@ const CASE_STUDIES: CaseStudy[] = [
     id: "laut",
     title: "Laut",
     category: "Branding & Identidad Visual",
-    videoSrc: "/cases/laut.mp4",
+    mediaSrc: "/cases/laut.mp4",
+    mediaType: "video",
     logoSrc: "/cases/logos/laut-logo.png",
     logoAlt: "Logo de Laut",
   },
@@ -28,9 +31,28 @@ const CASE_STUDIES: CaseStudy[] = [
     id: "madan",
     title: "Madan",
     category: "Estrategia & Contenido Premium",
-    videoSrc: "/cases/madan.mp4",
+    mediaSrc: "/cases/madan.mp4",
+    mediaType: "video",
     logoSrc: "/cases/logos/madan-logo.jpg.png",
     logoAlt: "Logo de Madan",
+  },
+  {
+    id: "unilabor",
+    title: "Unilabor",
+    category: "Branding & Desarrollo Web",
+    mediaSrc: "/cases/unilabor.jpg",
+    mediaType: "image",
+    logoSrc: "/cases/logos/unilabor-logo.png",
+    logoAlt: "Logo de Unilabor",
+  },
+  {
+    id: "7quince",
+    title: "7:Quince",
+    category: "Contenido & Campañas de Ads",
+    mediaSrc: "/cases/715.jpg",
+    mediaType: "image",
+    logoSrc: "/cases/logos/715-logo.png",
+    logoAlt: "Logo de 7:Quince",
   },
 ];
 
@@ -39,16 +61,7 @@ const sectionVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.2, delayChildren: 0.1 },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 },
   },
 };
 
@@ -61,54 +74,18 @@ const fadeUpVariants = {
   },
 };
 
-/* ─── Geometric Card Frame ─── */
-function CardGeometry({ variant }: { variant: "left" | "right" }) {
-  return (
-    <div className="absolute inset-0 pointer-events-none -z-10" aria-hidden="true">
-      {/* Offset square frames behind the card */}
-      <div
-        className={`absolute border border-slate-300/12 rounded-2xl ${
-          variant === "left"
-            ? "-top-3 -left-3 w-full h-full"
-            : "-top-3 -right-3 w-full h-full"
-        }`}
-      />
-      <div
-        className={`absolute border border-slate-200/8 rounded-2xl ${
-          variant === "left"
-            ? "-top-6 -left-6 w-full h-full"
-            : "-top-6 -right-6 w-full h-full"
-        }`}
-      />
-      {/* Floating circle accent */}
-      <m.div
-        initial={{ opacity: 0, scale: 0.5 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.2, delay: 0.5 }}
-        className={`absolute rounded-full border border-slate-300/20 ${
-          variant === "left"
-            ? "-bottom-8 -right-8 w-[100px] h-[100px]"
-            : "-bottom-8 -left-8 w-[120px] h-[120px]"
-        }`}
-      />
-    </div>
-  );
-}
+const cardVariants = {
+  hidden: { opacity: 0, x: 40 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
+  },
+};
 
 export default function CasosPreview() {
   return (
     <section className="py-24 lg:py-32 relative overflow-hidden">
-      {/* Section-level geometric decoration */}
-      <div className="absolute inset-0 pointer-events-none -z-10" aria-hidden="true">
-        <div className="absolute top-[10%] right-[5%] w-[240px] h-[240px] rounded-full border border-slate-300/10" />
-        <div className="absolute bottom-[5%] left-[3%] w-[180px] h-[180px] rounded-full border border-slate-200/10" />
-        <div
-          className="absolute top-[40%] left-[50%] w-[140px] h-[140px] border border-slate-200/8"
-          style={{ transform: "rotate(15deg)" }}
-        />
-      </div>
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Header */}
         <m.div
@@ -116,15 +93,18 @@ export default function CasosPreview() {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           variants={sectionVariants}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-12 lg:mb-16 gap-6"
+          className="flex flex-col md:flex-row md:items-end justify-between mb-10 lg:mb-14 gap-6"
         >
           <m.div variants={fadeUpVariants}>
-            <h2 className="font-bricolage font-extrabold text-3xl lg:text-4xl text-slate-900 tracking-tight">
-              Casos de Estudio
+            <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.25em] text-[var(--text-muted)] mb-4">
+              <span className="w-6 h-px bg-[var(--accent)]" />
+              Portafolio
+            </span>
+            <h2 className="font-bricolage font-extrabold text-3xl lg:text-5xl text-[var(--text-primary)] tracking-tight">
+              Casos de Éxito
             </h2>
-            <p className="text-slate-600 mt-4 max-w-md">
-              Un vistazo a nuestras colaboraciones recientes. Marcas que
-              confiaron en nuestra visión para escalar al siguiente nivel.
+            <p className="text-[var(--text-secondary)] mt-3 max-w-md text-base lg:text-lg">
+              Marcas que confiaron en nuestra visión para escalar al siguiente nivel.
             </p>
           </m.div>
 
@@ -132,72 +112,85 @@ export default function CasosPreview() {
             <Link
               href="/clientes"
               prefetch={false}
-              className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.1em] text-slate-900 hover:text-slate-600 transition-colors group"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)] hover:gap-3 transition-all duration-300 group"
             >
               Ver todos los proyectos
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
           </m.div>
         </m.div>
+      </div>
 
-        {/* Case Study Cards */}
-        <m.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          variants={sectionVariants}
-          className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-14"
-        >
+      {/* Horizontal scroll showcase */}
+      <m.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={sectionVariants}
+      >
+        <div className="horizontal-scroll flex gap-5 lg:gap-6 pl-4 sm:pl-6 lg:pl-[max(2rem,calc((100vw-80rem)/2+2rem))] pr-4 sm:pr-6 pb-4">
           {CASE_STUDIES.map((study, index) => (
             <m.div
               key={study.id}
               variants={cardVariants}
-              className="relative"
+              custom={index}
+              className="scroll-snap-card flex-shrink-0 w-[80vw] sm:w-[65vw] md:w-[50vw] lg:w-[42vw] xl:w-[38vw]"
             >
-              {/* Geometric frame decoration */}
-              <CardGeometry variant={index === 0 ? "left" : "right"} />
+              <Link
+                href={`/clientes#${study.id}`}
+                prefetch={false}
+                className="group block"
+              >
+                {/* Media Container */}
+                <div className="relative w-full aspect-[4/3] rounded-2xl lg:rounded-3xl overflow-hidden mb-5 bg-[var(--bg-secondary)] border border-[var(--border)] transition-all duration-500 group-hover:border-[var(--accent)]/30 group-hover:shadow-xl group-hover:shadow-[var(--accent)]/5">
+                  {study.mediaType === "video" ? (
+                    <LazyVideo
+                      src={study.mediaSrc}
+                      aria-label={`Video del caso de ${study.title}`}
+                      className="absolute inset-0 w-full h-full"
+                    />
+                  ) : (
+                    <Image
+                      src={study.mediaSrc}
+                      alt={`Caso de estudio: ${study.title}`}
+                      fill
+                      sizes="(max-width: 640px) 80vw, (max-width: 1024px) 50vw, 38vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  )}
 
-              <Link href={`/clientes#${study.id}`} prefetch={false} className="group block relative z-10">
-                {/* Video Container */}
-                <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden mb-6 bg-stone-200 shadow-lg">
-                  <video
-                    src={study.videoSrc}
-                    aria-label={`Video del caso de ${study.title}`}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  {/* Subtle overlay on hover */}
-                  <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors duration-500" />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                  {/* Client logo badge */}
-                  <div className="absolute bottom-5 left-5 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2.5 shadow-sm">
+                  {/* Client logo badge — top right */}
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl px-3 py-2 shadow-sm border border-white/50">
                     <Image
                       src={study.logoSrc}
                       alt={study.logoAlt}
-                      width={80}
-                      height={28}
-                      className="h-6 w-auto object-contain brightness-0"
+                      width={72}
+                      height={24}
+                      className="h-5 w-auto object-contain brightness-0"
                     />
                   </div>
                 </div>
 
                 {/* Card Info */}
-                <div>
-                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-slate-500 mb-2">
-                    {study.category}
-                  </p>
-                  <h3 className="font-bricolage font-bold text-2xl text-slate-900 group-hover:text-slate-700 transition-colors">
-                    {study.title}
-                  </h3>
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-[var(--text-muted)] mb-1.5">
+                      {study.category}
+                    </p>
+                    <h3 className="font-bricolage font-bold text-xl lg:text-2xl text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors duration-300">
+                      {study.title}
+                    </h3>
+                  </div>
+                  <ArrowRight className="w-5 h-5 text-[var(--text-muted)] group-hover:text-[var(--accent)] group-hover:translate-x-1 transition-all duration-300 mt-1 flex-shrink-0" />
                 </div>
               </Link>
             </m.div>
           ))}
-        </m.div>
-      </div>
+        </div>
+      </m.div>
     </section>
   );
 }

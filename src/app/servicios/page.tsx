@@ -12,7 +12,7 @@ export default function ServiciosPage() {
   return (
     <>
       <Servicios />
-      <Footer theme="light" />
+      <Footer />
     </>
   );
 }

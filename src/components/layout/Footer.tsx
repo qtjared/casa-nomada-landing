@@ -2,23 +2,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 
-interface FooterLink {
-  label: string;
-  href: string;
-}
-
-interface SocialLink {
-  label: string;
-  href: string;
-  icon: React.ComponentType<any>;
-}
-
-const InstagramIcon = (props: any) => (
+const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     {...props}
@@ -29,12 +18,12 @@ const InstagramIcon = (props: any) => (
   </svg>
 );
 
-const LinkedinIcon = (props: any) => (
+const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2"
+    strokeWidth="1.5"
     strokeLinecap="round"
     strokeLinejoin="round"
     {...props}
@@ -45,6 +34,17 @@ const LinkedinIcon = (props: any) => (
   </svg>
 );
 
+interface FooterLink {
+  label: string;
+  href: string;
+}
+
+interface SocialLink {
+  label: string;
+  href: string;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+}
+
 const QUICK_LINKS: FooterLink[] = [
   { label: "Inicio", href: "/" },
   { label: "Servicios", href: "/servicios" },
@@ -53,51 +53,52 @@ const QUICK_LINKS: FooterLink[] = [
 ];
 
 const SOCIAL_LINKS: SocialLink[] = [
-  { label: "Instagram", href: "https://www.instagram.com/casanomadamx?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==", icon: InstagramIcon },
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/casa-nomada-mx/", icon: LinkedinIcon },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/casanomadamx",
+    icon: InstagramIcon,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/casa-nomada-mx/",
+    icon: LinkedinIcon,
+  },
 ];
 
-interface FooterProps {
-  theme?: "light" | "dark";
-}
-
-export function Footer({ theme = "light" }: FooterProps) {
+export function Footer() {
   const currentYear = new Date().getFullYear();
-  
-  const isDark = theme === "dark";
-  const textHeading = isDark ? "text-white" : "text-slate-900";
-  const textBody = isDark ? "text-slate-300" : "text-slate-500";
-  const textLink = isDark ? "text-slate-300 hover:text-white" : "text-slate-600 hover:text-slate-900";
-  const borderStyle = isDark ? "border-white/10" : "border-stone-300/50";
-  const iconStyle = isDark 
-    ? "border-white/20 text-slate-300 hover:bg-white hover:text-slate-900 hover:border-white" 
-    : "border-stone-300/80 text-slate-600 hover:bg-slate-900 hover:text-white hover:border-slate-900";
 
   return (
-    <footer className={`w-full border-t mt-16 ${borderStyle}`}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl py-16 lg:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+    <footer className="w-full border-t border-[var(--border)] mt-0">
+      {/* Monumental Brand Name */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl pt-16 lg:pt-24 pb-12">
+        <h2 className="font-bricolage font-extrabold text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] xl:text-[11rem] tracking-tighter leading-none text-[var(--border)] select-none" aria-hidden="true">
+          Casa Nómada
+        </h2>
+      </div>
 
+      {/* Content Grid */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl pb-16 lg:pb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
           {/* Column 1: Brand */}
-          <div className="lg:col-span-1">
+          <div>
             <Link href="/" prefetch={false} className="block relative w-10 h-10 mb-5">
               <Image
                 src="/logo.png"
                 alt="Casa Nómada Logo"
                 fill
                 sizes="40px"
-                className={`object-contain ${isDark ? "brightness-0 invert" : ""}`}
+                className="object-contain"
               />
             </Link>
-            <p className={`text-sm leading-relaxed max-w-xs ${textBody}`}>
-              Una célula creativa basada en Villahermosa y Monterrey, estructurando marcas
-              de hospitalidad y comercio premium.
+            <p className="text-sm leading-relaxed max-w-xs text-[var(--text-secondary)]">
+              Una célula creativa basada en Villahermosa y Monterrey, estructurando marcas de hospitalidad y comercio premium.
             </p>
           </div>
 
           {/* Column 2: Quick Links */}
           <div>
-            <h4 className={`font-bricolage font-bold text-sm uppercase tracking-[0.2em] mb-5 ${textHeading}`}>
+            <h4 className="font-bricolage font-bold text-xs uppercase tracking-[0.2em] mb-5 text-[var(--text-primary)]">
               Navegación
             </h4>
             <ul className="flex flex-col gap-3">
@@ -106,7 +107,7 @@ export function Footer({ theme = "light" }: FooterProps) {
                   <Link
                     href={link.href}
                     prefetch={false}
-                    className={`text-sm transition-colors inline-flex items-center gap-1 group ${textLink}`}
+                    className="text-sm transition-colors inline-flex items-center gap-1 group text-[var(--text-secondary)] hover:text-[var(--accent)]"
                   >
                     {link.label}
                     <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-0.5 group-hover:opacity-100 group-hover:translate-y-0 transition-all" />
@@ -118,27 +119,30 @@ export function Footer({ theme = "light" }: FooterProps) {
 
           {/* Column 3: Contact */}
           <div>
-            <h4 className={`font-bricolage font-bold text-sm uppercase tracking-[0.2em] mb-5 ${textHeading}`}>
+            <h4 className="font-bricolage font-bold text-xs uppercase tracking-[0.2em] mb-5 text-[var(--text-primary)]">
               Contacto
             </h4>
             <ul className="flex flex-col gap-3">
               <li>
                 <a
                   href="mailto:info@casanomada.com.mx"
-                  className={`text-sm transition-colors ${textLink}`}
+                  className="text-sm transition-colors text-[var(--text-secondary)] hover:text-[var(--accent)]"
                 >
                   info@casanomada.com.mx
                 </a>
               </li>
-              <li className={`text-sm ${textBody}`}>
-                Villahermosa, Tabasco | Monterrey, Nuevo León
+              <li className="text-sm text-[var(--text-secondary)]">
+                Villahermosa, Tabasco
+              </li>
+              <li className="text-sm text-[var(--text-secondary)]">
+                Monterrey, Nuevo León
               </li>
             </ul>
           </div>
 
           {/* Column 4: Social */}
           <div>
-            <h4 className={`font-bricolage font-bold text-sm uppercase tracking-[0.2em] mb-5 ${textHeading}`}>
+            <h4 className="font-bricolage font-bold text-xs uppercase tracking-[0.2em] mb-5 text-[var(--text-primary)]">
               Síguenos
             </h4>
             <div className="flex items-center gap-3">
@@ -151,9 +155,9 @@ export function Footer({ theme = "light" }: FooterProps) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${iconStyle}`}
+                    className="w-10 h-10 rounded-full border border-[var(--border)] flex items-center justify-center transition-all duration-300 text-[var(--text-secondary)] hover:bg-[var(--accent)] hover:text-white hover:border-[var(--accent)] hover:scale-105"
                   >
-                    <IconComponent className="w-4 h-4" strokeWidth={1.5} />
+                    <IconComponent className="w-4 h-4" />
                   </a>
                 );
               })}
@@ -162,12 +166,12 @@ export function Footer({ theme = "light" }: FooterProps) {
         </div>
 
         {/* Bottom bar */}
-        <div className={`mt-16 pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-4 ${borderStyle}`}>
-          <p className={`text-xs ${isDark ? "text-slate-400" : "text-slate-400"}`}>
+        <div className="mt-14 pt-8 border-t border-[var(--border)] flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-[var(--text-muted)]">
             © {currentYear} Casa Nómada. Todos los derechos reservados.
           </p>
-          <p className={`text-xs ${isDark ? "text-slate-400" : "text-slate-400"}`}>
-            Diseñado con propósito en Villahermosa.
+          <p className="text-xs text-[var(--text-muted)]">
+            Villahermosa — Monterrey
           </p>
         </div>
       </div>

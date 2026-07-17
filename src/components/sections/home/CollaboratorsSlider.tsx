@@ -17,18 +17,21 @@ const COLLABORATORS = [
 
 export default function CollaboratorsSlider() {
   return (
-    <section className="w-full overflow-hidden bg-transparent py-10 border-y border-stone-200/50">
+    <section className="w-full overflow-hidden py-10 border-y border-[var(--border)]">
       <div className="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
         <ul className="flex items-center justify-center md:justify-start [&_li]:mx-8 animate-scroll whitespace-nowrap">
-          {/* We duplicate the array to create the infinite scroll effect */}
+          {/* Duplicate for infinite scroll */}
           {[...COLLABORATORS, ...COLLABORATORS].map((collaborator, index) => (
-            <li key={`${collaborator.id}-${index}`} className="relative w-32 h-16 md:w-40 md:h-20 flex-shrink-0">
+            <li
+              key={`${collaborator.id}-${index}`}
+              className="relative w-28 h-14 md:w-36 md:h-16 flex-shrink-0"
+            >
               <Image
                 src={collaborator.src}
                 alt={collaborator.name}
                 fill
-                sizes="(max-width: 768px) 128px, 160px"
-                className="object-contain brightness-0 opacity-70 hover:opacity-100 transition-opacity duration-300 drop-shadow-sm"
+                sizes="(max-width: 768px) 112px, 144px"
+                className="object-contain brightness-0 opacity-30 hover:opacity-60 transition-opacity duration-500"
               />
             </li>
           ))}

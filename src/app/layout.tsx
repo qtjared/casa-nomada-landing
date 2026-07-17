@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
-import { DecorativeShapes } from "@/components/ui/DecorativeShapes";
 import { Providers } from "@/components/Providers";
 import "./globals.css";
 
@@ -18,9 +17,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Casa Nómada | Creatividad de Alto Impacto",
+  title: "Casa Nómada | Agencia Creativa de Élite",
   description:
-    "Casa Nómada es una célula creativa en Villahermosa y Monterrey, estructurando marcas de hospitalidad y comercio premium.",
+    "Casa Nómada es una célula creativa en Villahermosa y Monterrey, estructurando marcas de hospitalidad y comercio premium con estrategias digitales, contenido y desarrollo web.",
 };
 
 export default function RootLayout({
@@ -30,9 +29,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${bricolageGrotesque.variable} ${inter.variable}`}>
-      <body className="font-sans antialiased bg-[#F4F1ED] text-slate-900 min-h-screen relative">
+      <body className="font-sans antialiased bg-[var(--bg-primary)] text-[var(--text-primary)] min-h-screen relative noise-overlay">
         <Providers>
-          <DecorativeShapes />
           <div className="relative z-10">
             <Navbar />
             <main>{children}</main>

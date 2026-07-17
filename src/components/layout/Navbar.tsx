@@ -44,7 +44,7 @@ const linkVariants: Variants = {
 
 export function Navbar() {
   const pathname = usePathname();
-  
+
   const isScrolled = useSyncExternalStore(
     (callback) => {
       window.addEventListener("scroll", callback, { passive: true });
@@ -99,7 +99,10 @@ export function Navbar() {
     }
   };
 
-  const handleMobileLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleMobileLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    href: string
+  ) => {
     setIsOpen(false);
     if (href === "/" && pathname === "/") {
       e.preventDefault();
@@ -107,55 +110,50 @@ export function Navbar() {
     }
   };
 
-  // Moved variants outside the component
-
-
-
   return (
     <>
-      <header 
+      <header
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           isOpen
             ? "bg-transparent"
-            : isScrolled 
-              ? "bg-[#F4F1ED]/90 backdrop-blur-md shadow-sm py-0" 
-              : "bg-transparent py-2"
+            : isScrolled
+            ? "bg-[var(--bg-primary)]/90 backdrop-blur-md shadow-sm shadow-black/[0.03] py-0"
+            : "bg-transparent py-2"
         }`}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
           <div className="flex items-center justify-between h-20">
-
             {/* Left: Logo/Name Text */}
             <div className="flex-1 flex justify-start">
-              <Link 
-                href="/" 
+              <Link
+                href="/"
                 onClick={(e) => {
                   if (isOpen) setIsOpen(false);
                   handleHomeClick(e);
                 }}
-                className="text-xl font-bold tracking-tight text-slate-900 font-sans"
+                className="text-lg font-bold tracking-tight text-[var(--text-primary)] font-sans"
               >
                 Casa Nómada
               </Link>
             </div>
 
-            {/* Center: The actual image logo (acts as trigger on mobile) */}
+            {/* Center: The actual image logo */}
             <div className="flex-shrink-0 flex justify-center">
-              <Link 
-                href="/" 
-                onClick={handleLogoClick} 
+              <Link
+                href="/"
+                onClick={handleLogoClick}
                 className="block select-none"
               >
                 <m.div
-                  animate={{ rotate: (isOpen && isMobile) ? -180 : 0 }}
+                  animate={{ rotate: isOpen && isMobile ? -180 : 0 }}
                   transition={{ duration: 0.25, ease: "easeOut" }}
-                  className="relative w-12 h-12 cursor-pointer active:scale-95 transition-transform"
+                  className="relative w-11 h-11 cursor-pointer active:scale-95 transition-transform"
                 >
                   <Image
                     src="/logo.png"
                     alt="Casa Nómada Logo"
                     fill
-                    sizes="48px"
+                    sizes="44px"
                     className="object-contain"
                     priority
                   />
@@ -164,7 +162,7 @@ export function Navbar() {
             </div>
 
             {/* Right: Navigation Links (Desktop) */}
-            <nav className="flex-1 hidden md:flex justify-end items-center gap-6">
+            <nav className="flex-1 hidden md:flex justify-end items-center gap-7">
               {NAV_LINKS.map((link) => {
                 const isActive = pathname === link.href;
 
@@ -173,25 +171,31 @@ export function Navbar() {
                     key={link.label}
                     href={link.href}
                     onClick={link.href === "/" ? handleHomeClick : undefined}
-                    className={`relative text-sm font-bricolage font-medium transition-colors py-1 group ${
-                      isActive ? "text-slate-900" : "text-slate-600 hover:text-slate-900"
+                    className={`relative text-sm font-medium transition-colors py-1 group ${
+                      isActive
+                        ? "text-[var(--accent)]"
+                        : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                     }`}
                   >
                     {link.label}
 
                     {/* Hover underline */}
                     {!isActive && (
-                      <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-slate-900 group-hover:w-full transition-all duration-300" />
+                      <span className="absolute left-0 -bottom-1 w-0 h-[1.5px] bg-[var(--accent)] group-hover:w-full transition-all duration-300" />
                     )}
 
-                    {/* Framer Motion animated underline */}
+                    {/* Active underline */}
                     {isActive && (
                       <m.div
                         layoutId={isMobile ? undefined : "navbar-underline"}
-                        className="absolute left-0 -bottom-1 w-full h-[2px] bg-slate-900"
+                        className="absolute left-0 -bottom-1 w-full h-[1.5px] bg-[var(--accent)]"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 500,
+                          damping: 30,
+                        }}
                       />
                     )}
                   </Link>
@@ -210,7 +214,7 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 bg-[#F4F1ED]/95 backdrop-blur-md z-40 flex flex-col justify-center items-center"
+            className="fixed inset-0 bg-[var(--bg-primary)]/95 backdrop-blur-md z-40 flex flex-col justify-center items-center"
           >
             <m.div
               variants={menuVariants}
@@ -227,21 +231,21 @@ export function Navbar() {
                       href={link.href}
                       onClick={(e) => handleMobileLinkClick(e, link.href)}
                       className={`relative group font-bricolage text-4xl font-semibold tracking-tight transition-colors py-2 block ${
-                        isActive 
-                          ? "text-orange-500" 
-                          : "text-slate-900 hover:text-orange-500"
+                        isActive
+                          ? "text-[var(--accent)]"
+                          : "text-[var(--text-primary)] hover:text-[var(--accent)]"
                       }`}
                     >
                       {link.label}
 
                       {/* Hover underline on mobile */}
                       {!isActive && (
-                        <span className="absolute left-0 -bottom-1 w-0 h-[3px] bg-slate-900 group-hover:w-full transition-all duration-300" />
+                        <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[var(--accent)] group-hover:w-full transition-all duration-300" />
                       )}
 
                       {/* Active underline on mobile */}
                       {isActive && (
-                        <span className="absolute left-0 -bottom-1 w-full h-[3px] bg-orange-500" />
+                        <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-[var(--accent)]" />
                       )}
                     </Link>
                   </m.div>

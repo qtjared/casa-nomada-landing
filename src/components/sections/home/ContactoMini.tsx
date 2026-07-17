@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { m } from "framer-motion";
 
@@ -14,25 +15,12 @@ const fadeUpVariants = {
 
 export default function ContactoMini() {
   return (
-    <section className="py-28 lg:py-40 relative overflow-hidden bg-white">
-      {/* Massive Ambient Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-[600px] bg-blue-900/10 blur-[120px] rounded-full pointer-events-none -z-10" />
-
-      {/* Geometric decoration */}
-      <div className="absolute inset-0 pointer-events-none -z-10" aria-hidden="true">
-        <m.div 
-          className="absolute top-[10%] right-[10%] w-[250px] h-[250px] rounded-full border border-slate-200/40"
-          style={{ willChange: "transform" }}
-          animate={{ rotate: 360, scale: [1, 1.05, 1] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        />
-        <m.div 
-          className="absolute bottom-[10%] left-[5%] w-[180px] h-[180px] rounded-full border border-slate-200/40"
-          style={{ willChange: "transform" }}
-          animate={{ rotate: -360, scale: [1, 1.1, 1] }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        />
-      </div>
+    <section className="py-28 lg:py-40 relative overflow-hidden">
+      {/* Subtle glow */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-[500px] bg-[var(--accent)]/[0.04] blur-[120px] rounded-full pointer-events-none"
+        aria-hidden="true"
+      />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl relative z-10">
         <m.div
@@ -47,35 +35,38 @@ export default function ContactoMini() {
             },
           }}
         >
-          <m.div
-            variants={fadeUpVariants}
-            className="relative"
-          >
-            {/* Glassmorphism Card */}
-            <div className="bg-white/40 backdrop-blur-2xl rounded-[3rem] p-8 md:p-16 shadow-2xl shadow-slate-900/5 border border-slate-200/50 relative overflow-hidden z-10 group">
-              {/* Inner shine effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+          <m.div variants={fadeUpVariants} className="relative">
+            {/* Clean card */}
+            <div className="bg-white rounded-3xl lg:rounded-[2.5rem] p-8 md:p-14 lg:p-16 shadow-xl shadow-black/[0.03] border border-[var(--border)] relative overflow-hidden group">
+              {/* Accent top border */}
+              <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[var(--accent)] to-transparent opacity-50" />
 
               <div className="relative z-10">
-                <h2 className="font-bricolage font-extrabold text-4xl md:text-5xl lg:text-6xl text-slate-900 tracking-tight mb-6 text-center">
-                  Iniciemos la conversación
-                </h2>
-                <p className="text-slate-600 text-center mb-12 max-w-xl mx-auto text-lg md:text-xl">
-                  El primer paso hacia una identidad extraordinaria comienza con
-                  un simple mensaje.
-                </p>
+                <div className="text-center mb-10">
+                  <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.25em] text-[var(--text-muted)] mb-5">
+                    <span className="w-6 h-px bg-[var(--accent)]" />
+                    Contacto
+                    <span className="w-6 h-px bg-[var(--accent)]" />
+                  </span>
+                  <h2 className="font-bricolage font-extrabold text-3xl md:text-4xl lg:text-5xl text-[var(--text-primary)] tracking-tight mb-4">
+                    Iniciemos la conversación
+                  </h2>
+                  <p className="text-[var(--text-secondary)] max-w-lg mx-auto text-base md:text-lg">
+                    El primer paso hacia una identidad extraordinaria comienza con un simple mensaje.
+                  </p>
+                </div>
 
                 <form
-                  className="flex flex-col gap-8 max-w-2xl mx-auto"
+                  className="flex flex-col gap-7 max-w-2xl mx-auto"
                   onSubmit={(e) => e.preventDefault()}
                 >
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
                     <div className="relative">
                       <input
                         type="text"
                         aria-label="Nombre completo"
                         placeholder="Nombre completo"
-                        className="w-full bg-transparent border-b border-slate-300 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900 transition-colors"
+                        className="w-full bg-transparent border-b border-[var(--border)] py-4 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] transition-colors text-sm"
                       />
                     </div>
                     <div className="relative">
@@ -83,7 +74,7 @@ export default function ContactoMini() {
                         type="email"
                         aria-label="Correo electrónico"
                         placeholder="Correo electrónico"
-                        className="w-full bg-transparent border-b border-slate-300 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900 transition-colors"
+                        className="w-full bg-transparent border-b border-[var(--border)] py-4 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] transition-colors text-sm"
                       />
                     </div>
                   </div>
@@ -93,18 +84,24 @@ export default function ContactoMini() {
                       rows={3}
                       aria-label="Cuéntanos un poco sobre tu proyecto"
                       placeholder="Cuéntanos un poco sobre tu proyecto..."
-                      className="w-full bg-transparent border-b border-slate-300 py-4 text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-slate-900 transition-colors resize-none"
-                    ></textarea>
+                      className="w-full bg-transparent border-b border-[var(--border)] py-4 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:outline-none focus:border-[var(--accent)] transition-colors resize-none text-sm"
+                    />
                   </div>
 
-                  <div className="flex justify-center mt-6">
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-4">
                     <button
                       type="submit"
-                      className="inline-flex items-center justify-center gap-3 bg-slate-900 text-white px-10 py-5 rounded-full font-medium hover:bg-black hover:scale-[1.02] hover:shadow-2xl hover:shadow-slate-900/20 transition-all duration-300 group/btn w-full sm:w-auto text-lg"
+                      className="inline-flex items-center justify-center gap-3 bg-[var(--accent)] text-white px-10 py-4 rounded-full font-medium hover:brightness-110 hover:scale-[1.02] hover:shadow-lg hover:shadow-[var(--accent)]/20 transition-all duration-300 group/btn w-full sm:w-auto"
                     >
                       Enviar propuesta
-                      <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 group-hover/btn:scale-110 transition-transform" />
+                      <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-1 transition-transform" />
                     </button>
+                    <Link
+                      href="/contacto"
+                      className="text-sm text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors"
+                    >
+                      O visita la página de contacto →
+                    </Link>
                   </div>
                 </form>
               </div>

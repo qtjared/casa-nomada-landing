@@ -15,8 +15,8 @@ export default function HomePage() {
     <div className="overflow-x-hidden">
       <Hero />
       <Conocenos />
-      <section className="w-full bg-white flex flex-col items-center">
-        <h3 className="text-sm uppercase tracking-[0.2em] text-slate-500 text-center mb-8 font-medium">
+      <section className="w-full flex flex-col items-center">
+        <h3 className="text-xs uppercase tracking-[0.25em] text-[var(--text-muted)] text-center mb-6 font-medium">
           Marcas que confían en nosotros
         </h3>
         <CollaboratorsSlider />
@@ -26,7 +26,7 @@ export default function HomePage() {
       <CasosPreview />
       <Testimonios />
       <ContactoMini />
-      <Footer theme="light" />
+      <Footer />
     </div>
   );
 }

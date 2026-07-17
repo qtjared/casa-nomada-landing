@@ -111,9 +111,9 @@ export function AnimatedTestimonials({
                 </div>
               )}
 
-              <h2 className="font-bricolage text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl text-slate-900">{title}</h2>
+              <h2 className="font-bricolage text-3xl font-extrabold tracking-tight sm:text-4xl md:text-5xl text-[var(--text-primary)]">{title}</h2>
 
-              <p className="max-w-[600px] text-slate-600 text-lg leading-relaxed">{subtitle}</p>
+              <p className="max-w-[600px] text-[var(--text-secondary)] text-lg leading-relaxed">{subtitle}</p>
 
               <div className="flex items-center gap-3 pt-4">
                 {testimonials.map((_, index) => (
@@ -121,7 +121,7 @@ export function AnimatedTestimonials({
                     key={index}
                     onClick={() => setActiveIndex(index)}
                     className={`h-2.5 rounded-full transition-all duration-300 ${
-                      activeIndex === index ? "w-10 bg-slate-900" : "w-2.5 bg-slate-300"
+                      activeIndex === index ? "w-10 bg-[var(--accent)]" : "w-2.5 bg-[var(--border)]"
                     }`}
                     aria-label={`View testimonial ${index + 1}`}
                   />
@@ -145,30 +145,30 @@ export function AnimatedTestimonials({
                 transition={{ duration: 0.5, ease: "easeInOut" }}
                 style={{ zIndex: activeIndex === index ? 10 : 0 }}
               >
-                <div className="bg-white rounded-2xl p-6 md:p-8 lg:p-10 shadow-sm border border-stone-200/50 hover:shadow-md hover:border-orange-500 transition-colors duration-300 h-full flex flex-col group">
+                <div className="bg-white rounded-2xl p-6 md:p-8 lg:p-10 shadow-sm border border-[var(--border)] hover:shadow-md hover:border-[var(--accent)]/40 transition-colors duration-300 h-full flex flex-col group">
                   <div className="mb-6 flex gap-2">
                     {Array(testimonial.rating)
                       .fill(0)
                       .map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-orange-400 text-orange-400 group-hover:fill-orange-500 group-hover:text-orange-500 transition-colors" />
+                        <Star key={i} className="h-5 w-5 fill-[var(--accent)] text-[var(--accent)] transition-colors" />
                       ))}
                   </div>
 
                   <div className="relative mb-6 flex-1">
-                    <Quote className="absolute -top-4 -left-4 h-12 w-12 text-slate-100 rotate-180 -z-10 group-hover:text-slate-200 transition-colors" />
-                    <p className="relative z-10 text-lg font-medium leading-relaxed text-slate-600 group-hover:text-slate-700 transition-colors">"{testimonial.content}"</p>
+                    <Quote className="absolute -top-4 -left-4 h-12 w-12 text-[var(--border)] rotate-180 -z-10 transition-colors" />
+                    <p className="relative z-10 text-lg font-medium leading-relaxed text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors">"{testimonial.content}"</p>
                   </div>
 
-                  <Separator className="my-4 bg-stone-100" />
+                  <Separator className="my-4 bg-[var(--border)]" />
 
                   <div className="flex items-center gap-4">
-                    <Avatar className="h-12 w-12 border border-slate-200">
+                    <Avatar className="h-12 w-12 border border-[var(--border)]">
                       <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
-                      <AvatarFallback className="text-slate-600 bg-slate-100">{testimonial.name.charAt(0)}</AvatarFallback>
+                      <AvatarFallback className="text-[var(--text-secondary)] bg-[var(--bg-secondary)]">{testimonial.name.charAt(0)}</AvatarFallback>
                     </Avatar>
                     <div>
-                      <h3 className="font-bricolage font-bold text-slate-900 group-hover:text-slate-950 transition-colors">{testimonial.name}</h3>
-                      <p className="text-sm text-slate-500 group-hover:text-slate-600 transition-colors">
+                      <h3 className="font-bricolage font-bold text-[var(--text-primary)] transition-colors">{testimonial.name}</h3>
+                      <p className="text-sm text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors">
                         {testimonial.role}, {testimonial.company}
                       </p>
                     </div>
@@ -178,8 +178,8 @@ export function AnimatedTestimonials({
             ))}
 
             {/* Decorative elements */}
-            <div className="absolute -bottom-6 -left-6 h-24 w-24 rounded-xl bg-orange-500/5"></div>
-            <div className="absolute -top-6 -right-6 h-24 w-24 rounded-xl bg-slate-900/5"></div>
+            <div className="absolute -bottom-6 -left-6 h-24 w-24 rounded-xl bg-[var(--accent)]/5"></div>
+            <div className="absolute -top-6 -right-6 h-24 w-24 rounded-xl bg-[var(--text-primary)]/5"></div>
           </m.div>
         </m.div>
 
