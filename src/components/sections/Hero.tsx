@@ -70,7 +70,7 @@ const wordVariants = {
 
 export default function Hero() {
   return (
-    <section className="relative w-full min-h-screen flex items-center pt-24 pb-16 lg:pt-0 lg:pb-0 overflow-hidden">
+    <section className="relative w-full min-h-[calc(100vh-80px)] flex items-center py-8 lg:py-0 overflow-hidden">
       {/* Subtle accent glow */}
       <div className="absolute top-[20%] right-[-5%] w-[500px] h-[500px] rounded-full bg-[var(--accent)]/[0.04] blur-[120px] pointer-events-none" aria-hidden="true" />
       <div className="absolute bottom-[10%] left-[-10%] w-[400px] h-[400px] rounded-full bg-[var(--accent)]/[0.03] blur-[100px] pointer-events-none" aria-hidden="true" />

@@ -108,10 +108,6 @@ export default function Conocenos() {
               className="mt-10 flex gap-10 border-t border-[var(--border)] pt-8"
             >
               <div>
-                <p className="font-bricolage font-bold text-2xl lg:text-3xl text-[var(--accent)]">2</p>
-                <p className="text-xs text-[var(--text-muted)] uppercase tracking-wide mt-1">Sedes</p>
-              </div>
-              <div>
                 <p className="font-bricolage font-bold text-2xl lg:text-3xl text-[var(--accent)]">10+</p>
                 <p className="text-xs text-[var(--text-muted)] uppercase tracking-wide mt-1">Marcas</p>
               </div>
