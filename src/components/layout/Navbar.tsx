@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import { m, AnimatePresence, Variants } from "framer-motion";
 
 interface NavLink {
@@ -209,7 +210,7 @@ export function Navbar() {
 
       {/* Full-Screen Mobile Overlay Menu */}
       <AnimatePresence>
-        {isOpen && isMobile && (
+        {isOpen && isMobile && typeof document !== 'undefined' && createPortal(
           <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -253,7 +254,8 @@ export function Navbar() {
                 );
               })}
             </m.div>
-          </m.div>
+          </m.div>,
+          document.body
         )}
       </AnimatePresence>
     </>
