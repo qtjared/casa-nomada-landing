@@ -110,18 +110,19 @@ export function Navbar() {
     }
   };
 
+  const bgClasses = isOpen
+    ? "bg-transparent"
+    : isScrolled
+    ? "bg-[var(--bg-primary)]/95 backdrop-blur-md shadow-sm shadow-black/[0.03]"
+    : "bg-transparent";
+
   return (
     <>
-      <header
-        className={`sticky top-0 left-0 w-full z-50 transition-all duration-300 pt-[env(safe-area-inset-top)] ${
-          isOpen
-            ? "bg-transparent"
-            : isScrolled
-            ? "bg-[var(--bg-primary)]/90 backdrop-blur-md shadow-sm shadow-black/[0.03] py-0"
-            : "bg-transparent py-2"
-        }`}
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <header className={`sticky top-0 left-0 w-full z-50 transition-all duration-300 ${bgClasses}`}>
+        {/* iOS Notch/Overscroll Extender: Shoots upwards 150px to guarantee no gap ever appears above the navbar */}
+        <div className={`absolute bottom-full left-0 w-full h-[150px] transition-all duration-300 ${bgClasses}`} aria-hidden="true" />
+        
+        <div className={`container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl transition-all duration-300 ${isScrolled ? 'py-0' : 'py-2'}`}>
           <div className="flex items-center justify-between h-20">
             {/* Left: Logo/Name Text */}
             <div className="flex-1 flex justify-start">
@@ -214,7 +215,12 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 bg-[var(--bg-primary)]/95 backdrop-blur-md z-40 flex flex-col justify-center items-center pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)]"
+            /* 
+              We use -top-32 and -bottom-32 (128px extra on both sides) to stretch the menu overlay 
+              WAY past the screen edges. This mathematically guarantees it covers iOS address bars, 
+              bottom safe areas, and overscroll bounces without relying on fragile 100vh calculations.
+            */
+            className="fixed -top-32 -bottom-32 left-0 right-0 bg-[var(--bg-primary)]/95 backdrop-blur-md z-40 flex flex-col justify-center items-center"
           >
             <m.div
               variants={menuVariants}
