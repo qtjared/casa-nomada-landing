@@ -141,7 +141,7 @@ export default function Clientes() {
             className="w-full"
             title={<><span className="text-slate-500 text-sm font-semibold uppercase tracking-[0.25em] block mb-2 font-sans">Proyectos Recientes</span>Casos de Éxito</>}
             subtitle="Descubre cómo hemos transformado visiones estratégicas en marcas líderes que conectan, inspiran y venden."
-            images={['/cases/715.jpg', '/cases/unilabor.jpg', '/ola.jpg']}
+            images={['/cases/715.jpg', '/cases/unilabor.jpg', '/cases/715.jpg']}
             actions={[
               { text: "Inicia tu proyecto", onClick: () => router.push('/contacto'), variant: 'default', className: "pointer-events-auto" }
             ]}

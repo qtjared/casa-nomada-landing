@@ -11,8 +11,8 @@ const SERVICIOS_DATA = [
     id: "estrategia",
     title: "Estrategia",
     icon: Lightbulb,
-    heroImage: "/ola.jpg",
-    detailImage: "/ola.jpg",
+    heroImage: "/hero.png",
+    detailImage: "/hero.png",
     description: "Analizamos tu mercado, competencia y audiencia para definir un rumbo claro. No damos pasos a ciegas; construimos los cimientos para que tu marca se posicione como un referente premium.",
     process: [
       { step: "1. Descubrimiento", desc: "Auditoría profunda de tu marca y mercado." },

@@ -15,8 +15,8 @@ const floatingVariants = { animate: { y: [0, -8, 0], transition: { duration: 3, 
 
 const HeroSection = ({ title, subtitle, actions, stats, images, className }: HeroSectionProps) => {
   return (
-    <section className={cn('w-full overflow-hidden bg-transparent py-12 sm:py-24', className)}>
-      <div className="container mx-auto grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-8 px-4 sm:px-6 max-w-7xl">
+    <section className={cn('w-full overflow-hidden bg-transparent pt-12 pb-28 sm:pt-24 sm:pb-32', className)}>
+      <div className="container mx-auto grid grid-cols-1 items-center gap-24 lg:grid-cols-2 lg:gap-8 px-4 sm:px-6 max-w-7xl">
         {/* Left Column: Text Content */}
         <m.div className="flex flex-col items-center text-center lg:items-start lg:text-left" variants={containerVariants} initial="hidden" animate="visible">
           <m.h1 className="font-bricolage text-5xl font-extrabold tracking-tight text-slate-900 sm:text-7xl" variants={itemVariants}>

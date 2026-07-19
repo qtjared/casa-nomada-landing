@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { m } from "framer-motion";
+import { useRef, useState, useEffect, useCallback } from "react";
 import LazyVideo from "@/components/ui/LazyVideo";
 
 /* ─── Case study data ─── */
@@ -84,9 +85,29 @@ const cardVariants = {
 };
 
 export default function CasosPreview() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [paddingLeft, setPaddingLeft] = useState(16); // Default to 1rem (16px) for mobile
+
+  const updatePadding = useCallback(() => {
+    if (containerRef.current) {
+      // The container has mx-auto and padding. 
+      // We want the padding to match the left edge of the TEXT inside the container.
+      const rect = containerRef.current.getBoundingClientRect();
+      const style = window.getComputedStyle(containerRef.current);
+      const padding = parseFloat(style.paddingLeft) || 0;
+      setPaddingLeft(rect.left + padding);
+    }
+  }, []);
+
+  useEffect(() => {
+    updatePadding();
+    window.addEventListener("resize", updatePadding);
+    return () => window.removeEventListener("resize", updatePadding);
+  }, [updatePadding]);
+
   return (
     <section className="py-24 lg:py-32 relative overflow-hidden">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+      <div ref={containerRef} className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         {/* Header */}
         <m.div
           initial="hidden"
@@ -129,7 +150,10 @@ export default function CasosPreview() {
         variants={sectionVariants}
         className="mt-12 lg:mt-16"
       >
-        <div className="horizontal-scroll flex gap-5 lg:gap-6 slider-align-padding pb-4">
+        <div 
+          className="horizontal-scroll flex gap-5 lg:gap-6 pb-4"
+          style={{ paddingLeft: `${paddingLeft}px`, paddingRight: `${paddingLeft}px`, scrollPaddingLeft: `${paddingLeft}px` }}
+        >
           {CASE_STUDIES.map((study, index) => (
             <m.div
               key={study.id}
