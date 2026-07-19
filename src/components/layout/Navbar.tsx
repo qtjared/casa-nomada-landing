@@ -3,8 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState, useEffect, useSyncExternalStore } from "react";
-import { createPortal } from "react-dom";
+import { useState, useEffect, useSyncExternalStore, useRef } from "react";
 import { m, AnimatePresence, Variants } from "framer-motion";
 
 interface NavLink {
@@ -72,15 +71,35 @@ export function Navbar() {
     }
   }, [isMobile]);
 
-  // Lock body scroll when mobile menu is open
+  const navRef = useRef<HTMLElement>(null);
+
+  // Close menu on click outside or scroll
   useEffect(() => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      if (isOpen && navRef.current && !navRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    const handleScroll = () => {
+      if (isOpen) {
+        setIsOpen(false);
+      }
+    };
+
     if (isOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("touchstart", handleClickOutside);
+      // Wait a tiny bit before attaching scroll to avoid immediate closure if opening the menu triggered a tiny scroll
+      setTimeout(() => {
+        window.addEventListener("scroll", handleScroll, { passive: true });
+      }, 50);
     }
+    
     return () => {
-      document.body.style.overflow = "";
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [isOpen]);
 
@@ -112,18 +131,21 @@ export function Navbar() {
   };
 
   const bgClasses = isOpen
-    ? "bg-transparent"
+    ? "bg-[#F4F1ED] shadow-sm"
     : isScrolled
-    ? "bg-[var(--bg-primary)]/95 backdrop-blur-md shadow-sm shadow-black/[0.03]"
+    ? "bg-[#F4F1ED]/80 backdrop-blur-md shadow-sm shadow-black/[0.03]"
     : "bg-transparent";
 
   return (
     <>
-      <header className={`sticky top-0 left-0 w-full z-[1000] transition-all duration-300 ${bgClasses}`}>
-        {/* iOS Notch/Overscroll Extender: Shoots upwards 150px to guarantee no gap ever appears above the navbar */}
-        <div className={`absolute bottom-full left-0 w-full h-[150px] transition-all duration-300 ${bgClasses}`} aria-hidden="true" />
+      <header ref={navRef} className="sticky top-0 left-0 w-full z-[1000]">
+        {/* Header Background */}
+        <div className={`absolute inset-0 w-full h-full transition-all duration-300 z-10 ${bgClasses}`} />
         
-        <div className={`container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl transition-all duration-300 ${isScrolled ? 'py-0' : 'py-2'}`}>
+        {/* iOS Notch/Overscroll Extender */}
+        <div className={`absolute bottom-full left-0 w-full h-[150px] transition-all duration-300 z-10 ${bgClasses}`} aria-hidden="true" />
+        
+        <div className={`relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl transition-all duration-300 ${isScrolled ? 'py-0' : 'py-2'}`}>
           <div className="flex items-center justify-between h-20">
             {/* Left: Logo/Name Text */}
             <div className="flex-1 flex justify-start">
@@ -206,58 +228,57 @@ export function Navbar() {
             </nav>
           </div>
         </div>
-      </header>
 
-      {/* Full-Screen Mobile Overlay Menu */}
-      <AnimatePresence>
-        {isOpen && isMobile && typeof document !== 'undefined' && createPortal(
-          <m.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed top-0 bottom-0 left-0 right-0 w-full bg-[var(--bg-primary)]/95 backdrop-blur-md z-[999] overflow-y-auto flex flex-col justify-center items-center"
-          >
+        {/* Tab-Style Mobile Menu */}
+        <AnimatePresence>
+          {isOpen && isMobile && (
             <m.div
-              variants={menuVariants}
-              initial="hidden"
-              animate="visible"
-              exit="hidden"
-              className="flex flex-col items-center gap-8 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] my-auto"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="absolute top-full left-0 w-full bg-[#F4F1ED] shadow-xl z-0 h-auto max-h-[70vh] overflow-y-auto pb-8 rounded-b-3xl border-t border-black/5 dark:border-white/5"
             >
-              {NAV_LINKS.map((link) => {
-                const isActive = pathname === link.href;
-                return (
-                  <m.div key={link.label} variants={linkVariants}>
-                    <Link
-                      href={link.href}
-                      onClick={(e) => handleMobileLinkClick(e, link.href)}
-                      className={`relative group font-bricolage text-4xl font-semibold tracking-tight transition-colors py-2 block ${
-                        isActive
-                          ? "text-[var(--accent)]"
-                          : "text-[var(--text-primary)] hover:text-[var(--accent)]"
-                      }`}
-                    >
-                      {link.label}
+              <m.div
+                variants={menuVariants}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
+                className="flex flex-col items-center gap-6 pt-6"
+              >
+                {NAV_LINKS.map((link) => {
+                  const isActive = pathname === link.href;
+                  return (
+                    <m.div key={link.label} variants={linkVariants}>
+                      <Link
+                        href={link.href}
+                        onClick={(e) => handleMobileLinkClick(e, link.href)}
+                        className={`relative group font-bricolage text-3xl font-semibold tracking-tight transition-colors py-2 block ${
+                          isActive
+                            ? "text-[var(--accent)]"
+                            : "text-[var(--text-primary)] hover:text-[var(--accent)]"
+                        }`}
+                      >
+                        {link.label}
 
-                      {/* Hover underline on mobile */}
-                      {!isActive && (
-                        <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[var(--accent)] group-hover:w-full transition-all duration-300" />
-                      )}
+                        {/* Hover underline on mobile */}
+                        {!isActive && (
+                          <span className="absolute left-0 -bottom-1 w-0 h-[2px] bg-[var(--accent)] group-hover:w-full transition-all duration-300" />
+                        )}
 
-                      {/* Active underline on mobile */}
-                      {isActive && (
-                        <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-[var(--accent)]" />
-                      )}
-                    </Link>
-                  </m.div>
-                );
-              })}
+                        {/* Active underline on mobile */}
+                        {isActive && (
+                          <span className="absolute left-0 -bottom-1 w-full h-[2px] bg-[var(--accent)]" />
+                        )}
+                      </Link>
+                    </m.div>
+                  );
+                })}
+              </m.div>
             </m.div>
-          </m.div>,
-          document.body
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>
+      </header>
     </>
   );
 }
