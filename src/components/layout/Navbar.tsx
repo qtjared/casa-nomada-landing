@@ -215,19 +215,14 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            /* 
-              We use -top-32 and -bottom-32 (128px extra on both sides) to stretch the menu overlay 
-              WAY past the screen edges. This mathematically guarantees it covers iOS address bars, 
-              bottom safe areas, and overscroll bounces without relying on fragile 100vh calculations.
-            */
-            className="fixed -top-32 -bottom-32 left-0 right-0 bg-[var(--bg-primary)]/95 backdrop-blur-md z-40 flex flex-col justify-center items-center"
+            className="fixed inset-0 h-[100dvh] bg-[var(--bg-primary)]/95 backdrop-blur-md z-[100] flex flex-col justify-center items-center"
           >
             <m.div
               variants={menuVariants}
               initial="hidden"
               animate="visible"
               exit="hidden"
-              className="flex flex-col items-center gap-8"
+              className="flex flex-col items-center gap-8 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
             >
               {NAV_LINKS.map((link) => {
                 const isActive = pathname === link.href;
