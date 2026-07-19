@@ -119,78 +119,79 @@ export default function CasosPreview() {
             </Link>
           </m.div>
         </m.div>
-      </div>
 
-      {/* Horizontal scroll showcase */}
-      <m.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-        variants={sectionVariants}
-      >
-        <div className="horizontal-scroll flex gap-5 lg:gap-6 pl-4 sm:pl-6 lg:pl-[max(2rem,calc((100vw-80rem)/2+2rem))] pr-4 sm:pr-6 pb-4">
-          {CASE_STUDIES.map((study, index) => (
-            <m.div
-              key={study.id}
-              variants={cardVariants}
-              custom={index}
-              className="scroll-snap-card flex-shrink-0 w-[80vw] sm:w-[65vw] md:w-[50vw] lg:w-[42vw] xl:w-[38vw]"
-            >
-              <Link
-                href={`/clientes#${study.id}`}
-                prefetch={false}
-                className="group block"
+        {/* Horizontal scroll showcase */}
+        <m.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          variants={sectionVariants}
+          className="mt-12 lg:mt-16"
+        >
+          <div className="horizontal-scroll flex gap-5 lg:gap-6 pb-4">
+            {CASE_STUDIES.map((study, index) => (
+              <m.div
+                key={study.id}
+                variants={cardVariants}
+                custom={index}
+                className="scroll-snap-card flex-shrink-0 w-[80vw] sm:w-[65vw] md:w-[50vw] lg:w-[42vw] xl:w-[38vw]"
               >
-                {/* Media Container */}
-                <div className="relative w-full aspect-[4/3] rounded-2xl lg:rounded-3xl overflow-hidden mb-5 bg-[var(--bg-secondary)] border border-[var(--border)] transition-all duration-500 group-hover:border-[var(--accent)]/30 group-hover:shadow-xl group-hover:shadow-[var(--accent)]/5">
-                  {study.mediaType === "video" ? (
-                    <LazyVideo
-                      src={study.mediaSrc}
-                      aria-label={`Video del caso de ${study.title}`}
-                      className="absolute inset-0 w-full h-full"
-                    />
-                  ) : (
-                    <Image
-                      src={study.mediaSrc}
-                      alt={`Caso de estudio: ${study.title}`}
-                      fill
-                      sizes="(max-width: 640px) 80vw, (max-width: 1024px) 50vw, 38vw"
-                      className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                  )}
+                <Link
+                  href={`/clientes#${study.id}`}
+                  prefetch={false}
+                  className="group block"
+                >
+                  {/* Media Container */}
+                  <div className="relative w-full aspect-[4/3] rounded-2xl lg:rounded-3xl overflow-hidden mb-5 bg-[var(--bg-secondary)] border border-[var(--border)] transition-all duration-500 group-hover:border-[var(--accent)]/30 group-hover:shadow-xl group-hover:shadow-[var(--accent)]/5">
+                    {study.mediaType === "video" ? (
+                      <LazyVideo
+                        src={study.mediaSrc}
+                        aria-label={`Video del caso de ${study.title}`}
+                        className="absolute inset-0 w-full h-full"
+                      />
+                    ) : (
+                      <Image
+                        src={study.mediaSrc}
+                        alt={`Caso de estudio: ${study.title}`}
+                        fill
+                        sizes="(max-width: 640px) 80vw, (max-width: 1024px) 50vw, 38vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    )}
 
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                  {/* Client logo badge — top right */}
-                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl px-3 py-2 shadow-sm border border-white/50">
-                    <Image
-                      src={study.logoSrc}
-                      alt={study.logoAlt}
-                      width={72}
-                      height={24}
-                      className="h-5 w-auto object-contain brightness-0"
-                    />
+                    {/* Client logo badge — top right */}
+                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl px-3 py-2 shadow-sm border border-white/50">
+                      <Image
+                        src={study.logoSrc}
+                        alt={study.logoAlt}
+                        width={72}
+                        height={24}
+                        className="h-5 w-auto object-contain brightness-0"
+                      />
+                    </div>
                   </div>
-                </div>
 
-                {/* Card Info */}
-                <div className="flex items-start justify-between">
-                  <div>
-                    <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-[var(--text-muted)] mb-1.5">
-                      {study.category}
-                    </p>
-                    <h3 className="font-bricolage font-bold text-xl lg:text-2xl text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors duration-300">
-                      {study.title}
-                    </h3>
+                  {/* Card Info */}
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="text-[10px] sm:text-xs font-medium uppercase tracking-[0.2em] text-[var(--text-muted)] mb-1.5">
+                        {study.category}
+                      </p>
+                      <h3 className="font-bricolage font-bold text-xl lg:text-2xl text-[var(--text-primary)] group-hover:text-[var(--accent)] transition-colors duration-300">
+                        {study.title}
+                      </h3>
+                    </div>
+                    <ArrowRight className="w-5 h-5 text-[var(--text-muted)] group-hover:text-[var(--accent)] group-hover:translate-x-1 transition-all duration-300 mt-1 flex-shrink-0" />
                   </div>
-                  <ArrowRight className="w-5 h-5 text-[var(--text-muted)] group-hover:text-[var(--accent)] group-hover:translate-x-1 transition-all duration-300 mt-1 flex-shrink-0" />
-                </div>
-              </Link>
-            </m.div>
-          ))}
-        </div>
-      </m.div>
+                </Link>
+              </m.div>
+            ))}
+          </div>
+        </m.div>
+      </div>
     </section>
   );
 }
