@@ -100,6 +100,39 @@ body {
   display: none;
 }
 
+.slider-align-padding {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .slider-align-padding {
+    padding-left: calc((100vw - 640px) / 2 + 1.5rem);
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .slider-align-padding {
+    padding-left: calc((100vw - 768px) / 2 + 1.5rem);
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .slider-align-padding {
+    padding-left: calc((100vw - 1024px) / 2 + 2rem);
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .slider-align-padding {
+    padding-left: calc((100vw - 1280px) / 2 + 2rem);
+    padding-right: 2rem;
+  }
+}
+
 .no-scrollbar {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
