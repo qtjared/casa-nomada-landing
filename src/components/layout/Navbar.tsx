@@ -103,6 +103,11 @@ export function Navbar() {
     };
   }, [isOpen]);
 
+  // Ensure window scrolls to top on route change (fixes Next.js transition scroll bugs)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (pathname === href) {
       e.preventDefault();
