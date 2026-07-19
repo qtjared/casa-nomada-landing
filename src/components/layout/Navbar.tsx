@@ -84,8 +84,8 @@ export function Navbar() {
     };
   }, [isOpen]);
 
-  const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (pathname === "/") {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (pathname === href) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -96,7 +96,7 @@ export function Navbar() {
       e.preventDefault();
       setIsOpen(!isOpen);
     } else {
-      handleHomeClick(e);
+      handleLinkClick(e, "/");
     }
   };
 
@@ -105,7 +105,7 @@ export function Navbar() {
     href: string
   ) => {
     setIsOpen(false);
-    if (href === "/" && pathname === "/") {
+    if (pathname === href) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -131,7 +131,7 @@ export function Navbar() {
                 href="/"
                 onClick={(e) => {
                   if (isOpen) setIsOpen(false);
-                  handleHomeClick(e);
+                  handleLinkClick(e, "/");
                 }}
                 className="text-lg font-bold tracking-tight text-[var(--text-primary)] font-sans"
               >
@@ -172,7 +172,7 @@ export function Navbar() {
                   <Link
                     key={link.label}
                     href={link.href}
-                    onClick={link.href === "/" ? handleHomeClick : undefined}
+                    onClick={(e) => handleLinkClick(e, link.href)}
                     className={`relative text-sm font-medium transition-colors py-1 group ${
                       isActive
                         ? "text-[var(--accent)]"
