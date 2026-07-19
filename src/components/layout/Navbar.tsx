@@ -118,7 +118,7 @@ export function Navbar() {
 
   return (
     <>
-      <header className={`sticky top-0 left-0 w-full z-50 transition-all duration-300 ${bgClasses}`}>
+      <header className={`sticky top-0 left-0 w-full z-[1000] transition-all duration-300 ${bgClasses}`}>
         {/* iOS Notch/Overscroll Extender: Shoots upwards 150px to guarantee no gap ever appears above the navbar */}
         <div className={`absolute bottom-full left-0 w-full h-[150px] transition-all duration-300 ${bgClasses}`} aria-hidden="true" />
         
@@ -215,14 +215,14 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 h-[100dvh] bg-[var(--bg-primary)]/95 backdrop-blur-md z-[100] flex flex-col justify-center items-center"
+            className="fixed top-0 bottom-0 left-0 right-0 w-full bg-[var(--bg-primary)]/95 backdrop-blur-md z-[999] overflow-y-auto flex flex-col justify-center items-center"
           >
             <m.div
               variants={menuVariants}
               initial="hidden"
               animate="visible"
               exit="hidden"
-              className="flex flex-col items-center gap-8 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]"
+              className="flex flex-col items-center gap-8 pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] my-auto"
             >
               {NAV_LINKS.map((link) => {
                 const isActive = pathname === link.href;
