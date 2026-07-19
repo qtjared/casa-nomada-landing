@@ -214,7 +214,7 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed top-0 left-0 w-full h-[100dvh] bg-[var(--bg-primary)]/95 backdrop-blur-md z-40 flex flex-col justify-center items-center pb-[env(safe-area-inset-bottom)]"
+            className="fixed inset-0 bg-[var(--bg-primary)]/95 backdrop-blur-md z-40 flex flex-col justify-center items-center pb-[env(safe-area-inset-bottom)] pt-[env(safe-area-inset-top)]"
           >
             <m.div
               variants={menuVariants}
