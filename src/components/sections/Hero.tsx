@@ -5,7 +5,6 @@ import { ArrowRight } from "lucide-react";
 import { m } from "framer-motion";
 import { InteractiveImageAccordion } from "@/components/ui/interactive-image-accordion";
 
-/* ─── Title lines for staggered reveal ─── */
 const titleLines = [
   { text: "Creatividad", highlight: false },
   { text: "que transforma", highlight: false },
