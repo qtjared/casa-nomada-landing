@@ -103,6 +103,25 @@ export function Navbar() {
     };
   }, [isOpen]);
 
+  // Dynamically set theme-color meta tag to match navbar state
+  // This controls the native iOS status bar / notch area color
+  useEffect(() => {
+    let meta = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement | null;
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = 'theme-color';
+      document.head.appendChild(meta);
+    }
+
+    if (isOpen) {
+      meta.content = '#F4F1ED'; // Solid — matches dropdown menu
+    } else if (isScrolled) {
+      meta.content = '#F4F1ED'; // Matches the blurred navbar bg
+    } else {
+      meta.content = '#F4F1ED'; // Matches page background at rest
+    }
+  }, [isOpen, isScrolled]);
+
   // Ensure window scrolls to top on route change (fixes Next.js transition scroll bugs)
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -143,9 +162,9 @@ export function Navbar() {
 
   return (
     <>
-      <header ref={navRef} className="sticky top-0 left-0 w-full z-[1000]">
-        {/* Seamless Header Background & iOS Notch Extender (oversized horizontally to fix Safari backdrop-blur bleeding) */}
-        <div className={`absolute -top-[150px] bottom-0 -left-[100px] -right-[100px] transition-all duration-300 z-10 ${bgClasses}`} aria-hidden="true" />
+      <header ref={navRef} className="sticky top-0 left-0 w-full z-[1000] pt-[env(safe-area-inset-top)]">
+        {/* Seamless Header Background & iOS Notch/Status Bar Extender */}
+        <div className={`absolute -top-[150px] bottom-0 left-0 w-full transition-all duration-300 z-10 ${bgClasses}`} aria-hidden="true" />
         
         <div className={`relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl transition-all duration-300 rounded-2xl ${isScrolled ? 'py-0' : 'py-2'}`}>
           <div className="flex items-center justify-between h-20">
