@@ -28,16 +28,31 @@ const menuVariants: Variants = {
       delayChildren: 0.1,
     },
   },
+  exit: {
+    opacity: 0,
+    transition: {
+      staggerChildren: 0.04,
+      staggerDirection: -1,
+    },
+  },
 };
 
 const linkVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 15 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
       duration: 0.4,
-      ease: "easeOut",
+      ease: [0.16, 1, 0.3, 1], // fluid ease out
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: 10,
+    transition: {
+      duration: 0.2,
+      ease: "easeIn",
     },
   },
 };
@@ -254,10 +269,10 @@ export function Navbar() {
       <AnimatePresence>
         {isOpen && isMobile && (
           <m.div
-            initial={{ opacity: 0, y: -12, scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -12, scale: 0.97 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.4, ease: [0.2, 0, 0.1, 1] }}
             className="pointer-events-auto mx-3 sm:mx-4 mt-2 rounded-[22px] bg-[#F4F1ED] shadow-xl shadow-black/[0.08] border border-black/[0.05] overflow-hidden"
           >
             <m.div
