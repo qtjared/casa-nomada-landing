@@ -148,7 +148,7 @@ export function Navbar() {
         <div className={`absolute inset-0 w-full h-full transition-all duration-300 z-10 ${bgClasses}`} />
         
         {/* iOS Notch/Overscroll Extender */}
-        <div className={`absolute bottom-full left-0 w-full h-[150px] transition-all duration-300 z-10 ${bgClasses}`} aria-hidden="true" />
+        <div className={`absolute bottom-full left-0 w-full h-[250px] transition-all duration-300 z-10 ${bgClasses}`} aria-hidden="true" />
         
         <div className={`relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl transition-all duration-300 ${isScrolled ? 'py-0' : 'py-2'}`}>
           <div className="flex items-center justify-between h-20">
