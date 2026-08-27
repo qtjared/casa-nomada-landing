@@ -162,9 +162,9 @@ export function Navbar() {
 
   return (
     <>
-      <header ref={navRef} className="sticky top-0 left-0 w-full z-[1000] pt-[env(safe-area-inset-top)]">
+      <header ref={navRef} className="fixed top-0 left-0 right-0 w-full z-[1000] pt-[env(safe-area-inset-top,_0px)]">
         {/* Safe Area Shield — always solid so content never bleeds behind the notch/status bar */}
-        <div className="absolute top-0 left-0 right-0 h-[env(safe-area-inset-top)] bg-[#F4F1ED] z-[12]" aria-hidden="true" />
+        <div className="absolute top-0 left-0 right-0 h-[env(safe-area-inset-top,_0px)] bg-[#F4F1ED] z-[12]" aria-hidden="true" />
 
         {/* Navbar Background & iOS Overscroll Extender */}
         <div className={`absolute -top-[150px] bottom-0 left-0 w-full transition-all duration-300 z-10 ${bgClasses}`} aria-hidden="true" />
