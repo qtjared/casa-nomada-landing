@@ -39,7 +39,7 @@ export default function RootLayout({
         <Providers>
           <div className="relative ">
             <Navbar />
-            <main className="pt-[calc(5rem+env(safe-area-inset-top,_0px))]">{children}</main>
+            <main className="pt-[calc(5.5rem+env(safe-area-inset-top,_0px))]">{children}</main>
           </div>
         </Providers>
       </body>
