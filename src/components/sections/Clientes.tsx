@@ -135,7 +135,7 @@ export default function Clientes() {
   return (
     <>
       {/* 1. Mobile Stack Layout (block lg:hidden) */}
-      <section className="block lg:hidden pt-0 pb-16 bg-transparent overflow-x-hidden">
+      <section className="block lg:hidden pt-0 pb-20 bg-transparent overflow-x-hidden">
         <m.div {...fadeInUp} className="-mt-8">
           <HeroSection
             className="w-full"
@@ -153,7 +153,7 @@ export default function Clientes() {
         </m.div>
         
         {/* Nuestros Colaboradores en Móvil */}
-        <m.div {...fadeInUp} className="container mx-auto px-4 sm:px-6 mb-12 text-center">
+        <m.div {...fadeInUp} className="container mx-auto px-4 sm:px-6 mt-32 mb-44 text-center">
           <h2 className="font-bricolage font-extrabold text-2xl text-slate-900 tracking-tight mb-2">
             Nuestros colaboradores
           </h2>
@@ -164,7 +164,7 @@ export default function Clientes() {
         </m.div>
 
         <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-14">
             {BUSINESSES.map((biz) => {
               return (
                 <m.article key={biz.id} {...fadeInUp} className="flex flex-col gap-6 bg-white p-6 rounded-3xl shadow-sm border border-stone-200/50">
@@ -249,7 +249,7 @@ export default function Clientes() {
           </div>
 
           {/* Collaborators */}
-          <div className="w-full py-20 pb-20 flex items-center justify-center">
+          <div className="w-full py-28 flex items-center justify-center">
             <m.div {...fadeInUp} className="w-full max-w-7xl mx-auto px-8 text-center flex flex-col items-center justify-center">
               <h2 className="font-bricolage font-extrabold text-3xl lg:text-4xl text-slate-900 tracking-tight mb-4">
                 Nuestros colaboradores
