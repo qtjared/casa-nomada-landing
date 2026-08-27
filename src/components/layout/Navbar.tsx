@@ -163,7 +163,10 @@ export function Navbar() {
   return (
     <>
       <header ref={navRef} className="sticky top-0 left-0 w-full z-[1000] pt-[env(safe-area-inset-top)]">
-        {/* Seamless Header Background & iOS Notch/Status Bar Extender */}
+        {/* Safe Area Shield — always solid so content never bleeds behind the notch/status bar */}
+        <div className="absolute top-0 left-0 right-0 h-[env(safe-area-inset-top)] bg-[#F4F1ED] z-[12]" aria-hidden="true" />
+
+        {/* Navbar Background & iOS Overscroll Extender */}
         <div className={`absolute -top-[150px] bottom-0 left-0 w-full transition-all duration-300 z-10 ${bgClasses}`} aria-hidden="true" />
         
         <div className={`relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl transition-all duration-300 rounded-2xl ${isScrolled ? 'py-0' : 'py-2'}`}>
