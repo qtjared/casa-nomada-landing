@@ -35,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${bricolageGrotesque.variable} ${inter.variable}`}>
-      <body className="font-sans antialiased bg-[var(--bg-primary)] text-[var(--text-primary)] min-h-screen relative noise-overlay">
+      <body className="font-sans antialiased bg-[var(--bg-primary)] text-[var(--text-primary)] min-h-screen relative noise-overlay overflow-x-hidden">
         <Providers>
           <div className="relative z-10">
             <Navbar />
